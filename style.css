@@ -1,0 +1,52 @@
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: #121212;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.view {
+  animation: fadeIn 0.18s ease-out;
+}
+
+.nav-item {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 14px;
+  color: #c9c9c9;
+  background: transparent;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.nav-item:focus-visible {
+  outline: 2px solid #f2d400;
+  outline-offset: 2px;
+}
+
+.nav-item.is-active {
+  background: #1a1a1a;
+  color: #f2d400;
+  border-color: #393939;
+}
+
+.touch-target {
+  min-height: 48px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

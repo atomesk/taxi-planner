@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Taxi Planning icon">
+  <rect width="512" height="512" rx="96" fill="#121212" />
+  <rect x="80" y="154" width="352" height="204" rx="48" fill="#f2d400" />
+  <circle cx="154" cy="382" r="38" fill="#f2d400" />
+  <circle cx="358" cy="382" r="38" fill="#f2d400" />
+  <rect x="138" y="192" width="236" height="64" rx="20" fill="#121212" />
+  <path d="M176 224h54M282 224h54" stroke="#f2d400" stroke-width="16" stroke-linecap="round" />
+</svg>

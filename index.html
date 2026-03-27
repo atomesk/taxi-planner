@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f2d400" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Taxi Planner</title>
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/icon-192.svg" />
+    <link rel="apple-touch-icon" href="./assets/icons/icon-192.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              taxi: {
+                dark: '#121212',
+                yellow: '#f2d400',
+                panel: '#1a1a1a',
+                muted: '#2a2a2a'
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="bg-taxi-dark text-white font-sans antialiased">
+    <div id="app" class="min-h-screen pb-24">
+      <header class="sticky top-0 z-20 border-b border-taxi-muted bg-taxi-dark/95 backdrop-blur">
+        <div class="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
+          <h1 class="text-xl font-bold text-taxi-yellow">Taxi Planner</h1>
+          <button
+            id="logout-button"
+            class="hidden min-h-12 rounded-xl border border-taxi-yellow px-4 text-sm font-semibold text-taxi-yellow"
+            type="button"
+          >
+            Déconnexion
+          </button>
+        </div>
+      </header>
+
+      <main class="mx-auto max-w-3xl px-4 py-5">
+        <section id="view-login" data-view class="view">
+          <div class="rounded-2xl border border-taxi-muted bg-taxi-panel p-5 shadow-lg">
+            <h2 class="mb-4 text-2xl font-semibold">Connexion admin</h2>
+            <form id="login-form" class="space-y-4" novalidate>
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Email</span>
+                <input
+                  id="login-email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                  placeholder="admin@taxi.fr"
+                />
+              </label>
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Mot de passe</span>
+                <input
+                  id="login-password"
+                  type="password"
+                  required
+                  autocomplete="current-password"
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                  placeholder="••••••••"
+                />
+              </label>
+              <p id="login-error" class="hidden text-sm text-red-400" role="alert"></p>
+              <button
+                type="submit"
+                class="min-h-12 w-full rounded-xl bg-taxi-yellow px-4 text-base font-bold text-black"
+              >
+                Se connecter
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section id="view-saisie" data-view class="view hidden">
+          <h2 class="mb-3 text-xl font-semibold">Journée · Saisie rapide</h2>
+          <div class="rounded-2xl border border-taxi-muted bg-taxi-panel p-4">
+            <form id="course-form" class="space-y-4" novalidate>
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Nom du client</span>
+                <input
+                  id="course-client"
+                  type="text"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                  placeholder="Ex: Mme Dupont"
+                />
+              </label>
+
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Lieu de prise en charge</span>
+                <input
+                  id="course-depart"
+                  type="text"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                  placeholder="Ex: Gare de Lyon"
+                />
+              </label>
+
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Destination</span>
+                <input
+                  id="course-arrivee"
+                  type="text"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                  placeholder="Ex: Aéroport CDG"
+                />
+              </label>
+
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Date et Heure</span>
+                <input
+                  id="course-datetime"
+                  type="datetime-local"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow focus:ring-2"
+                />
+              </label>
+
+              <p id="course-feedback" class="hidden text-sm" role="status"></p>
+
+              <div class="grid grid-cols-2 gap-3">
+                <button
+                  id="course-submit"
+                  type="submit"
+                  class="min-h-12 rounded-xl bg-yellow-400 px-4 py-4 text-base font-bold text-black"
+                >
+                  Enregistrer la course
+                </button>
+                <button
+                  id="course-reset"
+                  type="reset"
+                  class="min-h-12 rounded-xl border border-taxi-muted px-4 py-4 text-base font-semibold text-gray-100"
+                >
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section id="view-planning" data-view class="view hidden">
+          <h2 class="mb-3 text-xl font-semibold">Soirée · Planning</h2>
+          <div class="rounded-2xl border border-taxi-muted bg-taxi-panel p-4">
+            <div class="mb-4 flex items-center gap-2">
+              <button
+                type="button"
+                data-planning-filter="all"
+                class="planning-filter-button min-h-12 rounded-xl border border-taxi-muted px-4 text-sm font-semibold text-gray-100"
+              >
+                Toutes
+              </button>
+              <button
+                type="button"
+                data-planning-filter="pending"
+                class="planning-filter-button min-h-12 rounded-xl border border-taxi-muted px-4 text-sm font-semibold text-gray-100"
+              >
+                À assigner
+              </button>
+            </div>
+            <p id="planning-feedback" class="hidden mb-3 text-sm" role="status"></p>
+            <div id="planning-list" class="space-y-3"></div>
+          </div>
+        </section>
+
+        <section id="view-collegues" data-view class="view hidden">
+          <h2 class="mb-3 text-xl font-semibold">Collègues</h2>
+          <div class="rounded-2xl border border-taxi-muted bg-taxi-panel p-4">
+            <form id="collegue-form" class="space-y-3" novalidate>
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Nom</span>
+                <input
+                  id="collegue-nom"
+                  type="text"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                  placeholder="Ex: Karim"
+                />
+              </label>
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Téléphone</span>
+                <input
+                  id="collegue-telephone"
+                  type="tel"
+                  required
+                  inputmode="tel"
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                  placeholder="Ex: +33612345678"
+                />
+              </label>
+              <p id="collegue-feedback" class="hidden text-sm" role="status"></p>
+              <button
+                id="collegue-submit"
+                type="submit"
+                class="min-h-12 w-full rounded-xl bg-taxi-yellow px-4 text-base font-bold text-black"
+              >
+                Ajouter
+              </button>
+            </form>
+            <div class="mt-4 border-t border-taxi-muted pt-4">
+              <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-300">Liste des collègues</h3>
+              <div id="collegues-list" class="space-y-3"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <nav
+        id="bottom-nav"
+        class="hidden fixed inset-x-0 bottom-0 z-30 border-t border-taxi-muted bg-[#111111f2] px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2"
+        aria-label="Navigation principale"
+      >
+        <ul class="mx-auto grid max-w-3xl grid-cols-3 gap-2">
+          <li>
+            <button data-nav="view-saisie" class="nav-item" type="button" aria-label="Saisie journée">
+              <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 7h16M4 12h10M4 17h16" stroke-linecap="round" />
+              </svg>
+              <span class="text-xs font-semibold">Journée</span>
+            </button>
+          </li>
+          <li>
+            <button data-nav="view-planning" class="nav-item" type="button" aria-label="Planning soirée">
+              <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 2v4M16 2v4M4 10h16M6 6h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="text-xs font-semibold">Soirée</span>
+            </button>
+          </li>
+          <li>
+            <button data-nav="view-collegues" class="nav-item" type="button" aria-label="Gestion collègues">
+              <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="text-xs font-semibold">Collègues</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
