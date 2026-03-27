@@ -133,6 +133,33 @@
                 />
               </label>
 
+              <fieldset>
+                <legend class="mb-2 block text-sm text-gray-300">Type de course</legend>
+                <div class="grid grid-cols-2 gap-3 rounded-xl border border-taxi-muted bg-taxi-dark p-2">
+                  <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
+                    <input
+                      id="course-type-simple"
+                      type="radio"
+                      name="course-type"
+                      value="Simple"
+                      checked
+                      class="sr-only"
+                    />
+                    Aller Simple
+                  </label>
+                  <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
+                    <input
+                      id="course-type-ar"
+                      type="radio"
+                      name="course-type"
+                      value="A/R"
+                      class="sr-only"
+                    />
+                    A/R
+                  </label>
+                </div>
+              </fieldset>
+
               <label class="block">
                 <span class="mb-1 block text-sm text-gray-300">Date et Heure</span>
                 <input
@@ -168,7 +195,8 @@
         <section id="view-planning" data-view class="view hidden">
           <h2 class="mb-3 text-xl font-semibold">Soirée · Planning</h2>
           <div class="rounded-2xl border border-taxi-muted bg-taxi-panel p-4">
-            <div class="mb-4 flex items-center gap-2">
+            <div class="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div class="flex items-center gap-2">
               <button
                 type="button"
                 data-planning-filter="all"
@@ -183,6 +211,18 @@
               >
                 À assigner
               </button>
+              </div>
+
+              <label class="flex items-center gap-2 text-sm text-gray-300">
+                <span>Trier par</span>
+                <select
+                  id="planning-sort"
+                  class="min-h-12 rounded-xl border border-taxi-muted bg-taxi-dark px-3 text-sm text-white outline-none ring-taxi-yellow focus:ring-2"
+                >
+                  <option value="createdAt" selected>Date de création</option>
+                  <option value="courseDate">Date de la course</option>
+                </select>
+              </label>
             </div>
             <p id="planning-feedback" class="hidden mb-3 text-sm" role="status"></p>
             <div id="planning-list" class="space-y-3"></div>
@@ -229,6 +269,115 @@
             </div>
           </div>
         </section>
+
+        <div
+          id="edit-course-modal"
+          class="fixed inset-0 z-40 hidden items-end bg-black/65 p-4 sm:items-center sm:justify-center"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="edit-course-title"
+        >
+          <div class="w-full max-w-lg rounded-2xl border border-taxi-muted bg-taxi-panel p-4 shadow-2xl">
+            <div class="mb-3 flex items-center justify-between">
+              <h3 id="edit-course-title" class="text-lg font-semibold text-white">Modifier la course</h3>
+              <button
+                id="edit-course-cancel"
+                type="button"
+                class="min-h-12 rounded-xl border border-taxi-muted px-3 text-sm font-semibold text-gray-200"
+              >
+                Fermer
+              </button>
+            </div>
+
+            <form id="edit-course-form" class="space-y-3" novalidate>
+              <input id="edit-course-id" type="hidden" />
+
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Nom du client</span>
+                <input
+                  id="edit-course-client"
+                  type="text"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                />
+              </label>
+
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Lieu de prise en charge</span>
+                <input
+                  id="edit-course-depart"
+                  type="text"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                />
+              </label>
+
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Destination</span>
+                <input
+                  id="edit-course-arrivee"
+                  type="text"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow placeholder:text-gray-500 focus:ring-2"
+                />
+              </label>
+
+              <label class="block">
+                <span class="mb-1 block text-sm text-gray-300">Date et Heure</span>
+                <input
+                  id="edit-course-datetime"
+                  type="datetime-local"
+                  required
+                  class="min-h-12 w-full rounded-xl border border-taxi-muted bg-taxi-dark px-4 text-lg text-white outline-none ring-taxi-yellow focus:ring-2"
+                />
+              </label>
+
+              <fieldset>
+                <legend class="mb-2 block text-sm text-gray-300">Type de course</legend>
+                <div class="grid grid-cols-2 gap-3 rounded-xl border border-taxi-muted bg-taxi-dark p-2">
+                  <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
+                    <input
+                      type="radio"
+                      name="edit-course-type"
+                      value="Simple"
+                      checked
+                      class="sr-only"
+                    />
+                    Aller Simple
+                  </label>
+                  <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
+                    <input
+                      type="radio"
+                      name="edit-course-type"
+                      value="A/R"
+                      class="sr-only"
+                    />
+                    A/R
+                  </label>
+                </div>
+              </fieldset>
+
+              <p id="edit-course-feedback" class="hidden text-sm" role="status"></p>
+
+              <div class="grid grid-cols-2 gap-3">
+                <button
+                  id="edit-course-submit"
+                  type="submit"
+                  class="min-h-12 rounded-xl bg-taxi-yellow px-4 text-base font-bold text-black"
+                >
+                  Enregistrer
+                </button>
+                <button
+                  type="button"
+                  id="edit-course-abort"
+                  class="min-h-12 rounded-xl border border-taxi-muted px-4 text-base font-semibold text-gray-100"
+                >
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </main>
 
       <nav
