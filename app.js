@@ -185,7 +185,18 @@ function setEditCourseFeedback(message = '', isError = false) {
 }
 
 function normalizeCourseType(typeValue) {
-  return typeValue === 'A/R' ? 'A/R' : 'Simple';
+  const normalized = String(typeValue || '').trim().toLowerCase();
+
+  if (normalized === 'a/r') {
+    return 'A/R';
+  }
+
+  if (normalized === 'retour') {
+    return 'Retour';
+  }
+
+  // Keep backward compatibility: any legacy/unknown value falls back to Aller.
+  return 'Aller';
 }
 
 function getCheckedCourseType(radios) {
@@ -251,9 +262,10 @@ function getCourseDateAndTime(datetimeValue) {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
+  const weekday = new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(date);
 
   return {
-    date: `${day}/${month}`,
+    date: `${weekday} ${day}/${month}`,
     time: `${hours}:${minutes}`
   };
 }
@@ -286,7 +298,7 @@ function generateGroupSMS(courses) {
       if (lines.length > 0) {
         lines.push('');
       }
-      lines.push(date);
+      lines.push('Pour ' + date);
       lines.push('');
       previousDate = date;
     }
@@ -458,7 +470,11 @@ function renderPlanning(courses = APP_STATE.courses) {
       const courseType = normalizeCourseType(course.type);
       const borderClass = status === 'assigne' ? 'border-emerald-500/80' : 'border-yellow-400/90';
       const badgeClass = status === 'assigne' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-yellow-400/20 text-yellow-300';
-      const typeBadgeClass = courseType === 'A/R' ? 'bg-blue-500/20 text-blue-200' : 'bg-slate-500/20 text-slate-200';
+      const typeBadgeClass = courseType === 'A/R'
+        ? 'bg-blue-500/20 text-blue-200'
+        : courseType === 'Retour'
+          ? 'bg-orange-500/20 text-orange-200'
+          : 'bg-slate-500/20 text-slate-200';
       const isSelected = APP_STATE.selectedCourses.has(course.id);
       const isMenuOpen = APP_STATE.openCourseMenuId === course.id;
       const assignedCollegue = APP_STATE.collegues.find((collegue) => collegue.id === course.assigned_to)

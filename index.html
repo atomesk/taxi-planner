@@ -135,17 +135,27 @@
 
               <fieldset>
                 <legend class="mb-2 block text-sm text-gray-300">Type de course</legend>
-                <div class="grid grid-cols-2 gap-3 rounded-xl border border-taxi-muted bg-taxi-dark p-2">
+                <div class="grid grid-cols-3 gap-3 rounded-xl border border-taxi-muted bg-taxi-dark p-2">
                   <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
                     <input
-                      id="course-type-simple"
+                      id="course-type-aller"
                       type="radio"
                       name="course-type"
-                      value="Simple"
+                      value="Aller"
                       checked
                       class="sr-only"
                     />
-                    Aller Simple
+                    Aller
+                  </label>
+                  <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
+                    <input
+                      id="course-type-retour"
+                      type="radio"
+                      name="course-type"
+                      value="Retour"
+                      class="sr-only"
+                    />
+                    Retour
                   </label>
                   <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
                     <input
@@ -334,16 +344,25 @@
 
               <fieldset>
                 <legend class="mb-2 block text-sm text-gray-300">Type de course</legend>
-                <div class="grid grid-cols-2 gap-3 rounded-xl border border-taxi-muted bg-taxi-dark p-2">
+                <div class="grid grid-cols-3 gap-3 rounded-xl border border-taxi-muted bg-taxi-dark p-2">
                   <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
                     <input
                       type="radio"
                       name="edit-course-type"
-                      value="Simple"
+                      value="Aller"
                       checked
                       class="sr-only"
                     />
-                    Aller Simple
+                    Aller
+                  </label>
+                  <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
+                    <input
+                      type="radio"
+                      name="edit-course-type"
+                      value="Retour"
+                      class="sr-only"
+                    />
+                    Retour
                   </label>
                   <label class="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-taxi-muted px-3 text-sm font-semibold text-gray-200 transition hover:border-taxi-yellow/60 has-[:checked]:border-taxi-yellow has-[:checked]:bg-taxi-yellow/15 has-[:checked]:text-taxi-yellow">
                     <input
