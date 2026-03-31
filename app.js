@@ -303,7 +303,7 @@ function generateGroupSMS(courses) {
       previousDate = date;
     }
 
-    lines.push(`${time} : ${client}; PEC ${depart}; pour ${arrivee}; ${courseType}`);
+    lines.push(`${time} : ${client} - PEC ${depart} - pour ${arrivee} - ${courseType}`);
   });
 
   const encodedBody = lines.map((line) => encodeURIComponent(line)).join('%0a');
